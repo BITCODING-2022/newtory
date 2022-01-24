@@ -44,7 +44,7 @@ public class DataBase {
 	}
 
 	@PostConstruct
-	public void testMonthlyTodo() {
+	public void testMonthlyTodoJan() {
 		LocalDate startDate = LocalDate.of(2022, 1, 21);
 		LocalDate endDate = LocalDate.of(2022, 1, 24);
 
@@ -53,5 +53,19 @@ public class DataBase {
 
 		monthlyTodoList.add(monthlyTodoA);
 		monthlyTodoList.add(monthlyTodoB);
+	}
+
+	@PostConstruct
+	public void testMonthlyTodoFeb() {
+		LocalDate startDate = LocalDate.of(2022, 2, 11);
+		LocalDate endDate = LocalDate.of(2022, 2, 19);
+
+		MonthlyTodo monthlyTodoA = new MonthlyTodo(1L, startDate, endDate, "경주 여행");
+		MonthlyTodo monthlyTodoB = new MonthlyTodo(2L, startDate, endDate, "인천 여행");
+		MonthlyTodo monthlyTodoC = new MonthlyTodo(2L, startDate, endDate, "대전 여행");
+
+		monthlyTodoList.add(monthlyTodoA);
+		monthlyTodoList.add(monthlyTodoB);
+		monthlyTodoList.add(monthlyTodoC);
 	}
 }

@@ -20,7 +20,7 @@ public class CalendarService {
 	public List<MonthlyTodo> getMonthlyTodos(CalendarPage calendarPage) {
 		int year = calendarPage.getYear();
 		int month = calendarPage.getMonth();
-		log.info("Calendar of year :{}, month: {}", year, month);
+		log.info("Calendar of year: {}, month: {}", year, month);
 
 		return dbRepository.findMonthlyTodos(year, month);
 	}

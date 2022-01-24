@@ -26,8 +26,9 @@ public class CalendarController {
 	 */
 	@PostMapping("/calendar")
 	public List<MonthlyTodo> calendar(@RequestBody CalendarPage calendarPage) {
-
-		return calendarService.getMonthlyTodos(calendarPage);
+		List<MonthlyTodo> monthlyTodos = calendarService.getMonthlyTodos(calendarPage);
+		log.info(monthlyTodos.toString());
+		return monthlyTodos;
 	}
 
 }

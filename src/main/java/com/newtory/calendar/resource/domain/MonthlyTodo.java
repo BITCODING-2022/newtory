@@ -18,4 +18,12 @@ public class MonthlyTodo {
 		this.endDate = endDate;
 		this.description = description;
 	}
+
+	@Override
+	public String toString() {
+		return "\nmemberId : " + memberId +
+			"\nstartDate : " + startDate +
+			"\nendDate : " + endDate +
+			"\ndescription : " + description;
+	}
 }

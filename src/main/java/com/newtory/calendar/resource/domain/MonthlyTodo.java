@@ -21,9 +21,9 @@ public class MonthlyTodo {
 
 	@Override
 	public String toString() {
-		return "\nmemberId : " + memberId +
-			"\nstartDate : " + startDate +
-			"\nendDate : " + endDate +
-			"\ndescription : " + description;
+		return "\n{memberId : " + memberId +
+			", startDate : " + startDate +
+			", endDate : " + endDate +
+			", description : " + description +"}";
 	}
 }

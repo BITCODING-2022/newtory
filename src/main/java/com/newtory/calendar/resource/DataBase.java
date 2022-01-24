@@ -8,8 +8,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.stereotype.Component;
+
 import com.newtory.calendar.resource.domain.Member;
 import com.newtory.calendar.resource.domain.MonthlyTodo;
+
+import lombok.Getter;
 
 /**
  * Test를 위한 임의의 DB
@@ -23,10 +27,12 @@ import com.newtory.calendar.resource.domain.MonthlyTodo;
  *     monthlyTodoB
  * ]
  */
+@Component
+@Getter
 public class DataBase {
 
-	private static Map<Long, Member> memberMap = new ConcurrentHashMap<>();
-	private static List<MonthlyTodo> monthlyTodoList = new ArrayList<>();
+	private Map<Long, Member> memberMap = new ConcurrentHashMap<>();
+	private List<MonthlyTodo> monthlyTodoList = new ArrayList<>();
 
 	@PostConstruct
 	public void testMember() {

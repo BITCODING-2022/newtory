@@ -23,4 +23,9 @@ public class DBRepository {
 			.collect(Collectors.toList());
 	}
 
+	public List<MonthlyTodo> findAllMonthlyTodos() {
+		return dataBase.getMonthlyTodoList();
+	}
+
+
 }

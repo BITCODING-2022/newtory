@@ -24,4 +24,9 @@ public class CalendarService {
 
 		return dbRepository.findMonthlyTodos(year, month);
 	}
+
+	public List<MonthlyTodo> getMonthlyTodos() {
+
+		return dbRepository.findAllMonthlyTodos();
+	}
 }

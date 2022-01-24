@@ -45,11 +45,14 @@ public class DataBase {
 
 	@PostConstruct
 	public void testMonthlyTodoJan() {
-		LocalDate startDate = LocalDate.of(2022, 1, 21);
-		LocalDate endDate = LocalDate.of(2022, 1, 24);
+		LocalDate startDateA = LocalDate.of(2022, 1, 21);
+		LocalDate endDateA = LocalDate.of(2022, 1, 24);
 
-		MonthlyTodo monthlyTodoA = new MonthlyTodo(1L, startDate, endDate, "부산 여행");
-		MonthlyTodo monthlyTodoB = new MonthlyTodo(2L, startDate, endDate, "서울 여행");
+		LocalDate startDateB = LocalDate.of(2022, 1, 11);
+		LocalDate endDateB = LocalDate.of(2022, 1, 16);
+
+		MonthlyTodo monthlyTodoA = new MonthlyTodo(1L, 1L, startDateA, endDateA, "부산 여행");
+		MonthlyTodo monthlyTodoB = new MonthlyTodo(2L, 2L, startDateB, endDateB, "서울 여행");
 
 		monthlyTodoList.add(monthlyTodoA);
 		monthlyTodoList.add(monthlyTodoB);
@@ -57,12 +60,18 @@ public class DataBase {
 
 	@PostConstruct
 	public void testMonthlyTodoFeb() {
-		LocalDate startDate = LocalDate.of(2022, 2, 11);
-		LocalDate endDate = LocalDate.of(2022, 2, 19);
+		LocalDate startDateA = LocalDate.of(2022, 2, 11);
+		LocalDate endDateA = LocalDate.of(2022, 2, 19);
 
-		MonthlyTodo monthlyTodoA = new MonthlyTodo(1L, startDate, endDate, "경주 여행");
-		MonthlyTodo monthlyTodoB = new MonthlyTodo(1L, startDate, endDate, "인천 여행");
-		MonthlyTodo monthlyTodoC = new MonthlyTodo(1L, startDate, endDate, "대전 여행");
+		LocalDate startDateB = LocalDate.of(2022, 2, 1);
+		LocalDate endDateB = LocalDate.of(2022, 2, 3);
+
+		LocalDate startDateC = LocalDate.of(2022, 2, 2);
+		LocalDate endDateC = LocalDate.of(2022, 2, 15);
+
+		MonthlyTodo monthlyTodoA = new MonthlyTodo(1L, 3L, startDateA, endDateA, "경주 여행");
+		MonthlyTodo monthlyTodoB = new MonthlyTodo(1L, 4L, startDateB, endDateB, "인천 여행");
+		MonthlyTodo monthlyTodoC = new MonthlyTodo(1L, 5L, startDateC, endDateC, "대전 여행");
 
 		monthlyTodoList.add(monthlyTodoA);
 		monthlyTodoList.add(monthlyTodoB);

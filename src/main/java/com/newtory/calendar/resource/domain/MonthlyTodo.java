@@ -8,12 +8,15 @@ import lombok.Getter;
 public class MonthlyTodo {
 
 	private Long memberId;
+	private Long monthlyTodoId;
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private String description;
 
-	public MonthlyTodo(Long memberId, LocalDate startDate, LocalDate endDate, String description) {
+	public MonthlyTodo(Long memberId, Long monthlyTodoId, LocalDate startDate, LocalDate endDate,
+		String description) {
 		this.memberId = memberId;
+		this.monthlyTodoId = monthlyTodoId;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.description = description;

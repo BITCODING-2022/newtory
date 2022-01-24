@@ -2,6 +2,7 @@ package com.newtory.calendar;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,13 @@ public class CalendarController {
 		log.info("Calendar new Request : {}", calendarPage);
 		List<MonthlyTodo> monthlyTodos = calendarService.getMonthlyTodos(calendarPage);
 		log.info(monthlyTodos.toString());
+		return monthlyTodos;
+	}
+
+	@GetMapping("/calendar")
+	public List<MonthlyTodo> calendar() {
+		List<MonthlyTodo> monthlyTodos = calendarService.getMonthlyTodos();
+		log.info("Get {} monthlyTodos", monthlyTodos.size());
 		return monthlyTodos;
 	}
 

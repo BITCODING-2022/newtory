@@ -1,68 +1,83 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import '../css/calendar.css'
+import '../css/calendar.css';
+import EventModal from './EventModal';
 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { useEffect, useState } from 'react';
 
 
 
 function Calendar() {
 
-  const months = {
-    'January' : '1',
-    'February' : '2',
-    'March' : '3',
-    'April' : '4',
-    'May' : '5',
-    'June' : '6',
-    'July' : '7',
-    'August' : '8',
-    'September' : '9',
-    'October' : '10',
-    'November' : '11',
-    'December' : '12'
-  }
+  let monthlyTodos = []
+
+  const [events, setEvents] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [clickEvent, setClickEvent] = useState("");
+
+  const openModal = () => {
+    
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+  
 
   const baseUrl = "http://localhost:8080/calendar";
 
-  function getMonthlyTodos(e) {
+  function getMonthlyTodos() {
     console.log("조회 시작");
-
-    const strDate = e.split(" ");
-    let requestData = new Object();
-    requestData.year = strDate[1];
-    requestData.month = months[strDate[0]];
-    console.log(requestData);
-
-    console.log(JSON.parse(requestData));
-    const addTodoDetail = async () =>{
-    await axios
-      .post("http://localhost:8080/calendar", requestData,
-        {headers: {"Content-Type": `application/json`,}})
-      .then((response) => {
+    const request = async () => {
+      await axios
+        .get(baseUrl)
+        .then((response) => {
           console.log(response.data);
-      })
-    }
-    console.log("조회 완료");
+          addEvents(response.data);
+        })
+      }
+    request();
   }
+
+  function addEvents(responseData) {
+    responseData.map(e => (
+      monthlyTodos.push({
+        id: e.monthlyTodoId,
+        title: e.description,
+        start: e.startDate,
+        end: e.endDate,
+        color: "#" + Math.round(Math.random() * 0xFFFFFF).toString(16)
+      })
+    ))
+    console.log(monthlyTodos);
+    setEvents(monthlyTodos);
+  }
+
+  function handleEventClick(clickInfo) {
+    setModalOpen(true);
+    setClickEvent(clickInfo.event.title);
+  }
+
+  useEffect(() => {
+    getMonthlyTodos()
+  },[]);
 
   return (
     <div className="main-calendar">
       <div>
-        <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          initialView="dayGridMonth"
-          datesSet={(args) => {
-            console.log(args.view.title);
-            getMonthlyTodos(args.view.title);
-            }
-          }
+        <FullCalendar 
+          defaultView="dayGridMonth" 
+          plugins={[ dayGridPlugin ]}
+          events={events}
+          eventClick={handleEventClick}
         />
       </div>
+      <EventModal open={modalOpen} close={closeModal} header="일정 내용">
+        {clickEvent}
+      </EventModal>
     </div>
   );
 }

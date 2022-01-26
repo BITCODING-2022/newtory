@@ -22,25 +22,13 @@ public class TodoController {
     @PostMapping("/{memberId}/save/daily")
     public Long saveDailyTodo(@PathVariable("memberId") Long memberId,
                               @RequestBody DailyTodoSaveDto dto) {
-        DailyTodo dailyTodo = new DailyTodo(
-                memberService.findOne(memberId),
-                dto.getTitle(),
-                dto.getDescription(),
-                dto.getStatus(),
-                dto.getStartDate()); // 이후에 이 로직을 Service 또는 Domain으로 옮길 필요 있음
-        return todoService.addTodo(dailyTodo);
+        return todoService.addDailyTodo(memberService.findOne(memberId), dto);
     }
 
     @PostMapping("/{memberId}/save/monthly")
     public Long saveMonthlyTodo(@PathVariable("memberId") Long memberId,
                                 @RequestBody MonthlyTodoSaveDto dto) {
-        MonthlyTodo monthlyTodo = new MonthlyTodo(
-                memberService.findOne(memberId),
-                dto.getTitle(),
-                dto.getDescription(),
-                dto.getStatus(),
-                dto.getStartDate(),
-                dto.getEndDate()); // 이후에 이 로직을 Service 또는 Domain으로 옮길 필요 있음
-        return todoService.addTodo(monthlyTodo);
+
+        return todoService.addMonthlyTodo(memberService.findOne(memberId), dto);
     }
 }

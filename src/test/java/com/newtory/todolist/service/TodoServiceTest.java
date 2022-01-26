@@ -6,6 +6,8 @@ import com.newtory.todolist.domain.FinishStatus;
 import com.newtory.todolist.domain.MonthlyTodo;
 import com.newtory.todolist.domain.Todo;
 import com.newtory.todolist.repository.TodoRepository;
+import com.newtory.todolist.web.dto.daily.DailyTodoSaveDto;
+import com.newtory.todolist.web.dto.monthly.MonthlyTodoSaveDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,9 +43,9 @@ class TodoServiceTest {
     public void DailyTodo_추가() throws Exception {
         // given
         Member member = createMember();
-        DailyTodo dailyTodo = createDailyTodo(member);
+        DailyTodoSaveDto dailyDto = createDailyTodoDto();
         // when
-        Long saveId = todoService.addTodo(dailyTodo);
+        Long saveId = todoService.addDailyTodo(member, dailyDto);
 
         // then
         Todo getTodo = todoRepository.findOne(saveId);
@@ -57,10 +59,10 @@ class TodoServiceTest {
     public void MonthlyTodo_추가() throws Exception {
         // given
         Member member = createMember();
-        MonthlyTodo monthlyTodo = createMonthlyTodo(member);
+        MonthlyTodoSaveDto monthlyDto = createMonthlyTodo();
 
         // when
-        Long saveId = todoService.addTodo(monthlyTodo);
+        Long saveId = todoService.addMonthlyTodo(member, monthlyDto);
 
         // then
         Todo getTodo = todoRepository.findOne(saveId);
@@ -74,12 +76,12 @@ class TodoServiceTest {
     public void Todo_전체조회() throws Exception {
         // given
         Member member = createMember();
-        DailyTodo dailyTodo = createDailyTodo(member);
-        MonthlyTodo monthlyTodo = createMonthlyTodo(member);
+        DailyTodoSaveDto dailyDto = createDailyTodoDto();
+        MonthlyTodoSaveDto monthlyDto = createMonthlyTodo();
 
         // when
-        todoService.addTodo(dailyTodo);
-        todoService.addTodo(monthlyTodo);
+        todoService.addDailyTodo(member, dailyDto);
+        todoService.addMonthlyTodo(member, monthlyDto);
 
         // then
         List<Todo> todos = todoService.findTodos();
@@ -100,11 +102,11 @@ class TodoServiceTest {
     public void Monthly_고르기() throws Exception {
         // given
         Member member = createMember();
-        DailyTodo dailyTodo = createDailyTodo(member);
-        MonthlyTodo monthlyTodo = createMonthlyTodo(member);
+        DailyTodoSaveDto dailyDto = createDailyTodoDto();
+        MonthlyTodoSaveDto monthlyDto = createMonthlyTodo();
         // when
-        todoService.addTodo(dailyTodo);
-        todoService.addTodo(monthlyTodo);
+        todoService.addDailyTodo(member, dailyDto);
+        todoService.addMonthlyTodo(member, monthlyDto);
 
         // then
         List<MonthlyTodo> monthlyTodos = todoService.findMonthlyTodos();
@@ -120,11 +122,11 @@ class TodoServiceTest {
     public void TODO_삭제() throws Exception {
         // given
         Member member = createMember();
-        DailyTodo dailyTodo = createDailyTodo(member);
-        MonthlyTodo monthlyTodo = createMonthlyTodo(member);
+        DailyTodoSaveDto dailyDto = createDailyTodoDto();
+        MonthlyTodoSaveDto monthlyDto = createMonthlyTodo();
 
-        Long saveId = todoService.addTodo(dailyTodo);
-        todoService.addTodo(monthlyTodo);
+        Long saveId = todoService.addDailyTodo(member, dailyDto);
+        todoService.addMonthlyTodo(member, monthlyDto);
 
         // when
         todoService.deleteTodo(saveId);
@@ -146,16 +148,23 @@ class TodoServiceTest {
         return member;
     }
 
-    private DailyTodo createDailyTodo(Member member) {
-        DailyTodo dailyTodo = new DailyTodo(member, "title1", "description1", FinishStatus.ON_GOING, LocalDateTime.now());
-        em.persist(dailyTodo);
-        return dailyTodo;
+    private DailyTodoSaveDto createDailyTodoDto() {
+        DailyTodoSaveDto dailyDto = new DailyTodoSaveDto(
+                "title1",
+                "description1",
+                FinishStatus.ON_GOING,
+                LocalDateTime.now());
+        return dailyDto;
     }
 
-    private MonthlyTodo createMonthlyTodo(Member member) {
-        MonthlyTodo monthlyTodo = new MonthlyTodo(member, "title2", "description2", FinishStatus.ON_GOING, LocalDateTime.now(), LocalDateTime.now());
-        em.persist(monthlyTodo);
-        return monthlyTodo;
+    private MonthlyTodoSaveDto createMonthlyTodo() {
+        MonthlyTodoSaveDto monthlyDto = new MonthlyTodoSaveDto(
+                "title2",
+                "description2",
+                FinishStatus.ON_GOING,
+                LocalDateTime.now(),
+                LocalDateTime.now());
+        return monthlyDto;
     }
 
 

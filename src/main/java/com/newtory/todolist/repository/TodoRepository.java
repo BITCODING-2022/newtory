@@ -41,4 +41,8 @@ public class TodoRepository {
     public void delete(Long id) {
         em.remove(findOne(id));
     }
+
+    public void deleteAll() {
+        em.createQuery("delete from Todo");
+    }
 }

@@ -41,4 +41,9 @@ public class TodoService {
     public List<MonthlyTodo> findMonthlyTodos() {
         return todoRepository.findAllMonthlyTodo();
     }
+
+    @Transactional
+    public void deleteTodo(Long id) {
+        todoRepository.delete(id);
+    }
 }

@@ -17,4 +17,5 @@ public class DailyTodo extends Todo{
     public DailyTodo(Member member, String title, String description, FinishStatus status, LocalDateTime startDate) {
         super(member, title, description, status, startDate);
     }
+
 }

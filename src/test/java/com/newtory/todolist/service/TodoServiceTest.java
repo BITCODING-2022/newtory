@@ -115,6 +115,25 @@ class TodoServiceTest {
         Assertions.assertThat(getTodo.getDescription()).isEqualTo("description2");
     }
 
+    @Test
+//    @Rollback(value = false)
+    public void TODO_삭제() throws Exception {
+        // given
+        Member member = createMember();
+        DailyTodo dailyTodo = createDailyTodo(member);
+        MonthlyTodo monthlyTodo = createMonthlyTodo(member);
+
+        Long saveId = todoService.addTodo(dailyTodo);
+        todoService.addTodo(monthlyTodo);
+
+        // when
+        todoService.deleteTodo(saveId);
+
+        // then
+        List<Todo> todos = todoService.findTodos();
+        Assertions.assertThat(todos.size()).isEqualTo(1);
+    }
+
 
 
 

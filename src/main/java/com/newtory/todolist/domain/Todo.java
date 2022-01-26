@@ -41,4 +41,12 @@ public abstract class Todo {
         this.status = status;
         this.startDate = startDate;
     }
+
+    public void update(String title,
+                       String description,
+                       LocalDateTime startDate) {
+        this.title = title;
+        this.description = description;
+        this.startDate = startDate;
+    }
 }

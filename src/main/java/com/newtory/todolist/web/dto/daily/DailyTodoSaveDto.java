@@ -1,25 +1,26 @@
-package com.newtory.todolist.web.dto;
+package com.newtory.todolist.web.dto.daily;
 
 import com.newtory.member.domain.Member;
 import com.newtory.todolist.domain.FinishStatus;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
-public class MonthlyTodoSaveDto {
+@Getter
+@NoArgsConstructor
+public class DailyTodoSaveDto {
 
-    private Member member;
     private String title;
     private String description;
     private FinishStatus status;
-    private Date startDate;
-    private Date endDate;
+    private LocalDateTime startDate;
 
-    public MonthlyTodoSaveDto(Member member, String title, String description, FinishStatus status, Date startDate, Date endDate) {
-        this.member = member;
+    public DailyTodoSaveDto(String title, String description, FinishStatus status, LocalDateTime startDate) {
         this.title = title;
         this.description = description;
         this.status = status;
         this.startDate = startDate;
-        this.endDate = endDate;
     }
 }

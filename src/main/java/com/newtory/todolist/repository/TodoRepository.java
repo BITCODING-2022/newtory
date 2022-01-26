@@ -37,4 +37,8 @@ public class TodoRepository {
         return em.createQuery("select m from MonthlyTodo m", MonthlyTodo.class)
                 .getResultList();
     }
+
+    public void delete(Long id) {
+        em.remove(findOne(id));
+    }
 }

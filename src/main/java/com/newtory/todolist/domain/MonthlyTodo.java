@@ -22,4 +22,10 @@ public class MonthlyTodo extends Todo{
         super(member, title, description, status, startDate);
         this.endDate = endDate;
     }
+
+
+    public void update(String title, String description, LocalDateTime startDate, LocalDateTime endDate) {
+        super.update(title, description, startDate);
+        this.endDate = endDate;
+    }
 }

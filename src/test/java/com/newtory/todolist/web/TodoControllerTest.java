@@ -45,6 +45,9 @@ class TodoControllerTest {
     private TodoRepository todoRepository;
 
     @Autowired
+    private TodoService todoService;
+
+    @Autowired
     private MemberRepository memberRepository;
 
     @Autowired
@@ -104,5 +107,32 @@ class TodoControllerTest {
         List<Todo> all = todoRepository.findAll();
         Assertions.assertThat(all.get(0).getTitle()).isEqualTo("title");
         Assertions.assertThat(all.get(0).getDescription()).isEqualTo("description");
+    }
+
+    @Test
+    public void Todo_삭제() throws Exception {
+        // given
+        Member member = new Member("user");
+        memberRepository.save(member);
+        MonthlyTodoSaveDto monthlyDto = new MonthlyTodoSaveDto(
+                "title",
+                "description",
+                FinishStatus.ON_GOING,
+                LocalDateTime.now(),
+                LocalDateTime.now());
+
+        Long saveId = todoService.addMonthlyTodo(member, monthlyDto);
+
+        String url = "http://localhost:" + port + "/" + member.getId() + "/" + saveId;
+
+        // when
+        mvc.perform(post(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().registerModules(new JavaTimeModule()).writeValueAsString(monthlyDto)))
+                .andExpect(status().isOk());
+
+        // then
+        List<Todo> all = todoRepository.findAll();
+        Assertions.assertThat(all.size()).isEqualTo(0);
     }
 }

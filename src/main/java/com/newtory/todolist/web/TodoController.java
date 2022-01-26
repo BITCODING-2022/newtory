@@ -31,4 +31,10 @@ public class TodoController {
 
         return todoService.addMonthlyTodo(memberService.findOne(memberId), dto);
     }
+
+    @PostMapping("/{memberId}/{todoId}")
+    public void deleteTodo(@PathVariable("memberId") Long memberId,
+                           @PathVariable("todoId") Long todoId) {
+        todoService.deleteTodo(todoId);
+    }
 }

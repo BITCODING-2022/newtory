@@ -1,4 +1,4 @@
-package com.newtory.todolist.controller;
+package com.newtory.todolist.web;
 
 import com.newtory.todolist.service.TodoService;
 import lombok.RequiredArgsConstructor;

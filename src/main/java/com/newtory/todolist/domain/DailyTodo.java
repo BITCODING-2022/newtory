@@ -14,8 +14,19 @@ import java.util.Date;
 @Entity
 public class DailyTodo extends Todo{
 
-    public DailyTodo(Member member, String title, String description, FinishStatus status, LocalDateTime startDate) {
+    public DailyTodo(Member member,
+                     String title,
+                     String description,
+                     FinishStatus status,
+                     LocalDateTime startDate) {
         super(member, title, description, status, startDate);
+    }
+
+    @Override
+    public void update(String title,
+                       String description,
+                       LocalDateTime startDate) {
+        super.update(title, description, startDate);
     }
 
 }

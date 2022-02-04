@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.newtory.calendar.resource.DBRepository;
-import com.newtory.calendar.resource.domain.MonthlyTodo;
+import com.newtory.todolist.service.TodoService;
+import com.newtory.todolist.web.dto.monthly.MonthlyTodoResponseDto;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,18 +15,17 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class CalendarService {
 
-	private final DBRepository dbRepository;
+	private final TodoService todoService;
 
-	public List<MonthlyTodo> getMonthlyTodos(CalendarPage calendarPage) {
+	public List<MonthlyTodoResponseDto> getMonthlyTodos(CalendarPage calendarPage) {
 		int year = calendarPage.getYear();
 		int month = calendarPage.getMonth();
 		log.info("Calendar of year: {}, month: {}", year, month);
 
-		return dbRepository.findMonthlyTodos(year, month);
+		return todoService.findMonthlyTodos();
 	}
 
-	public List<MonthlyTodo> getMonthlyTodos() {
-
-		return dbRepository.findAllMonthlyTodos();
+	public List<MonthlyTodoResponseDto> getMonthlyTodos() {
+		return todoService.findMonthlyTodos();
 	}
 }

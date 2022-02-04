@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.newtory.calendar.resource.domain.MonthlyTodo;
+import com.newtory.todolist.web.dto.monthly.MonthlyTodoResponseDto;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,16 +26,16 @@ public class CalendarController {
 	 * }
 	 */
 	@PostMapping("/calendar")
-	public List<MonthlyTodo> calendar(@RequestBody CalendarPage calendarPage) {
+	public List<MonthlyTodoResponseDto> calendar(@RequestBody CalendarPage calendarPage) {
 		log.info("Calendar new Request : {}", calendarPage);
-		List<MonthlyTodo> monthlyTodos = calendarService.getMonthlyTodos(calendarPage);
+		List<MonthlyTodoResponseDto> monthlyTodos = calendarService.getMonthlyTodos(calendarPage);
 		log.info(monthlyTodos.toString());
 		return monthlyTodos;
 	}
 
 	@GetMapping("/calendar")
-	public List<MonthlyTodo> calendar() {
-		List<MonthlyTodo> monthlyTodos = calendarService.getMonthlyTodos();
+	public List<MonthlyTodoResponseDto> calendar() {
+		List<MonthlyTodoResponseDto> monthlyTodos = calendarService.getMonthlyTodos();
 		log.info("Get {} monthlyTodos", monthlyTodos.size());
 		return monthlyTodos;
 	}

@@ -7,6 +7,7 @@ import com.newtory.todolist.domain.Todo;
 import com.newtory.todolist.repository.TodoRepository;
 import com.newtory.todolist.web.dto.daily.DailyTodoSaveDto;
 import com.newtory.todolist.web.dto.daily.DailyTodoUpdateDto;
+import com.newtory.todolist.web.dto.monthly.MonthlyTodoResponseDto;
 import com.newtory.todolist.web.dto.monthly.MonthlyTodoSaveDto;
 import com.newtory.todolist.web.dto.monthly.MonthlyTodoUpdateDto;
 import org.assertj.core.api.Assertions;
@@ -108,10 +109,9 @@ class TodoServiceTest {
         todoService.addMonthlyTodo(member, monthlyDto);
 
         // then
-        List<MonthlyTodo> monthlyTodos = todoService.findMonthlyTodos();
-        MonthlyTodo getTodo = monthlyTodos.get(0);
+        List<MonthlyTodoResponseDto> monthlyTodos = todoService.findMonthlyTodos();
+        MonthlyTodoResponseDto getTodo = monthlyTodos.get(0);
 
-        Assertions.assertThat(getTodo.getMember()).isEqualTo(member);
         Assertions.assertThat(getTodo.getTitle()).isEqualTo("monthly_title");
         Assertions.assertThat(getTodo.getDescription()).isEqualTo("monthly_description");
     }

@@ -4,8 +4,10 @@ import com.newtory.member.service.MemberService;
 import com.newtory.todolist.domain.DailyTodo;
 import com.newtory.todolist.domain.MonthlyTodo;
 import com.newtory.todolist.service.TodoService;
+import com.newtory.todolist.web.dto.daily.DailyTodoResponseDto;
 import com.newtory.todolist.web.dto.daily.DailyTodoSaveDto;
 import com.newtory.todolist.web.dto.daily.DailyTodoUpdateDto;
+import com.newtory.todolist.web.dto.monthly.MonthlyTodoResponseDto;
 import com.newtory.todolist.web.dto.monthly.MonthlyTodoSaveDto;
 import com.newtory.todolist.web.dto.monthly.MonthlyTodoUpdateDto;
 import lombok.RequiredArgsConstructor;
@@ -42,12 +44,12 @@ public class TodoController {
     // == 일정 조회하기 (R) ==
 
     @PostMapping("/dailyTodos")
-    public List<DailyTodo> dailyTodoList(Model model) {
+    public List<DailyTodoResponseDto> dailyTodoList(Model model) {
         return todoService.findDailyTodos();
     }
 
     @PostMapping("/monthlyTodos")
-    public List<MonthlyTodo> monthlyTodoList(Model model) {
+    public List<MonthlyTodoResponseDto> monthlyTodoList(Model model) {
         return todoService.findMonthlyTodos();
     }
 

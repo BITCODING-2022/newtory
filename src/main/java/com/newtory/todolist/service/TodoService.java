@@ -5,8 +5,10 @@ import com.newtory.todolist.domain.DailyTodo;
 import com.newtory.todolist.domain.MonthlyTodo;
 import com.newtory.todolist.domain.Todo;
 import com.newtory.todolist.repository.TodoRepository;
+import com.newtory.todolist.web.dto.daily.DailyTodoResponseDto;
 import com.newtory.todolist.web.dto.daily.DailyTodoSaveDto;
 import com.newtory.todolist.web.dto.daily.DailyTodoUpdateDto;
+import com.newtory.todolist.web.dto.monthly.MonthlyTodoResponseDto;
 import com.newtory.todolist.web.dto.monthly.MonthlyTodoSaveDto;
 import com.newtory.todolist.web.dto.monthly.MonthlyTodoUpdateDto;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +54,10 @@ public class TodoService {
 
     @Transactional
     public Todo findOne(Long id) {
+        Todo findOne = todoRepository.findOne(id);
+        if (findOne instanceof DailyTodo) {
+            // 으...
+        }
         return todoRepository.findOne(id);
     }
 
@@ -61,12 +67,12 @@ public class TodoService {
     }
 
     @Transactional
-    public List<DailyTodo> findDailyTodos() {
+    public List<DailyTodoResponseDto> findDailyTodos() {
         return todoRepository.findAllDailyTodo();
     }
 
     @Transactional
-    public List<MonthlyTodo> findMonthlyTodos() {
+    public List<MonthlyTodoResponseDto> findMonthlyTodos() {
         return todoRepository.findAllMonthlyTodo();
     }
 
@@ -96,4 +102,5 @@ public class TodoService {
     public void deleteTodo(Long id) {
         todoRepository.delete(id);
     }
+
 }

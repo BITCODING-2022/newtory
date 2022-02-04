@@ -2,6 +2,8 @@ package com.newtory.todolist.web;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -77,5 +79,9 @@ public class TodoController {
         todoService.deleteTodo(todoId);
     }
 
+    @PostConstruct
+    public void TestData() {
+
+    }
 
 }

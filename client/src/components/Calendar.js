@@ -42,8 +42,8 @@ function Calendar() {
   function addEvents(responseData) {
     responseData.map(e => (
       monthlyTodos.push({
-        id: e.monthlyTodoId,
-        title: e.description,
+        id: e.id,
+        title: e.title,
         start: e.startDate,
         end: e.endDate,
         color: "#" + Math.round(Math.random() * 0xFFFFFF).toString(16)

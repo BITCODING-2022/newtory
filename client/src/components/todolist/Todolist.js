@@ -1,75 +1,72 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../css/todolist/todolist.css";
-import Template from "./Template";
+import axios from 'axios';
 import Todos from "./Todos";
-import { MdAddCircle } from "react-icons/md";
-import TodoInsert from "./TodoInsert";
-
-let nextId = 4;
 
 const Todolist = () => {
-  const [selectedTodo, setSelectedTodo] = useState(null);
-  const [insertToggle, setInsertToggle] = useState(false);
+  const [isMonthlyLoading, setMonthlyLoading] = useState(true);
+  const [isDailyLoading, setDailyLoading] = useState(true);
 
-  const [typeStatus, setTypeStatus] = useState("Daily");
+  const [monthlyTodos, setMonthlyTodos] = useState();
+  const [dailyTodos, setDailyTodos] = useState();
 
-  const onInsertToggle = () => {
-    if (selectedTodo) {
-      setSelectedTodo(null);
-    }
-    setInsertToggle(prev => !prev);
-  };
+  const [typeStatus, setTypeStatus] = useState("daily");
 
-  const onInsertTodo = text => {
-    if (text === "") {
-      return alert("할 일을 입력해주세요.");
-    } else {
-      const todo = {
-        id: nextId,
-        text,
-        checked: false
-      };
-      setTodos(todos => todos.concat(todo));
-      nextId++;
-    }
-  };
+  const baseUrl = "http://localhost:8080/todolist/";
 
-  const onCheckToggle = id => {
-    setTodos(todos =>
-      todos.map(todo =>
-        todo.id === id ? { ...todo, checked: !todo.checked } : todo
-      )
-    );
-  };
+  const getMonthlyTodos = () => {
+    console.log("Monthly 조회 시작");
+    const request = async () => {
+      await axios
+        .get(baseUrl + "daily")
+        .then((response) => {
+          console.log(response.data);
+          setMonthlyLoading(false);
+          setMonthlyTodos(response.data);
+        })
+      }
+    request();
+  }
 
-  const onChangeSelectedTodo = todo => {
-    setSelectedTodo(todo);
-  };
+  const getDailyTodos = () => {
+    console.log("Daily 조회 시작");
+    const request = async () => {
+      await axios
+        .get(baseUrl + "monthly")
+        .then((response) => {
+          console.log(response.data);
+          setDailyLoading(false);
+          setDailyTodos(response.data);
+        })
+      }
+    request();
+  }
 
-  const onRemove = id => {
-    onInsertToggle();
-    setTodos(todos => todos.filter(todo => todo.id !== id));
-  };
-
-  const onUpdate = (id, text) => {
-    onInsertToggle();
-    setTodos(todos =>
-      todos.map(todo => (todo.id === id ? { ...todo, text } : todo))
-    );
-  };
+  useEffect( () => {
+    getMonthlyTodos();
+    getDailyTodos();
+  }, []);
+  
 return (
   <div className="Template">
       <div className="tilteContainer">
-        <button className={"title" + (typeStatus === "Daily" ? " currentType" : "")}
+        <button className={"title" + (typeStatus === "daily" ? " currentType" : "")}
           onClick={() => {setTypeStatus("daily")}}>
           Daily
         </button>
-        <button className={"title" + (typeStatus === "Monthly" ? " currentType" : "")}
+        <button className={"title" + (typeStatus === "monthly" ? " currentType" : "")}
           onClick={() => {setTypeStatus("monthly")}}>
           Monthly
         </button>
       </div>
+      {isDailyLoading || isMonthlyLoading ? (
+        <div className="loading">Loading...</div>
+        ) : (
+          <Todos todos={typeStatus === "daily" ? dailyTodos : monthlyTodos} />
+        )}
   </div>
+
+
     // <Template todoLength={todos.length}>
     //   <Todos
     //     todos={todos}

@@ -15,10 +15,10 @@ function Header() {
       </div>
       <nav>
         <ul className="nav-container">
-        <li className = "nav-item">Calendar</li>
-          <li className = "nav-item">ToDoList</li>
-          <li className = "nav-item">Diary</li>
-          <li className = "nav-item">Pocket</li>        
+          <li className = "nav-item"><Link to="/">Calendar</Link></li>
+          <li className = "nav-item"><Link to="/todolist">ToDoList</Link></li>
+          <li className = "nav-item"><Link to="/diary">Diary</Link></li>
+          <li className = "nav-item"><Link to="/pocket">Pocket</Link></li>        
         </ul>
       </nav>
 

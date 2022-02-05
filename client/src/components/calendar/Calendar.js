@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import '../css/calendar.css';
+import '../../css/calendar/calendar.css';
 import EventModal from './EventModal';
 
 import FullCalendar from '@fullcalendar/react';

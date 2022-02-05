@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/eventModal.css';
+import '../../css/calendar/eventModal.css';
 
 const EventModal = (props) => {
   const { open, close, header } = props;

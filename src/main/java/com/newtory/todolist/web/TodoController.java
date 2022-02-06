@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,12 +46,16 @@ public class TodoController {
 
     // == 일정 조회하기 (R) ==
 
-    @PostMapping("/dailyTodos")
+    //조회에 맞게 GetMapping으로 변경..?
+    //url => /todolist/daily
+    @GetMapping("/todolist/daily")
     public List<DailyTodoResponseDto> dailyTodoList(Model model) {
         return todoService.findDailyTodos();
     }
 
-    @PostMapping("/monthlyTodos")
+    //조회에 맞게 GetMapping으로 변경..?
+    //url => /todolist/monthly
+    @GetMapping("/todolist/monthly")
     public List<MonthlyTodoResponseDto> monthlyTodoList(Model model) {
         return todoService.findMonthlyTodos();
     }

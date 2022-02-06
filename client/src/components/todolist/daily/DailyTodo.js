@@ -88,14 +88,9 @@ const TodoItem = ({
         )}
         <div
           className="text"
-          // onClick={() => {
-          //   onChangeSelectedTodo(todo);
-          //   onInsertToggle();
-          // }}
         >
           {description}
         </div>
-        
       </div>
     </div>
   );

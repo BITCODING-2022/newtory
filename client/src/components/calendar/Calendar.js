@@ -24,13 +24,13 @@ function Calendar() {
   };
   
 
-  const baseUrl = "http://localhost:8080/calendar";
+  const baseUrl = "http://localhost:8080/";
 
   const getMonthlyTodos = () => {
     console.log("조회 시작");
     const request = async () => {
       await axios
-        .get(baseUrl)
+        .get(baseUrl + "todolist/monthly")
         .then((response) => {
           console.log(response.data);
           addEvents(response.data);

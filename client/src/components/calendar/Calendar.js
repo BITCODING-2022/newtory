@@ -26,7 +26,7 @@ function Calendar() {
 
   const baseUrl = "http://localhost:8080/calendar";
 
-  function getMonthlyTodos() {
+  const getMonthlyTodos = () => {
     console.log("조회 시작");
     const request = async () => {
       await axios
@@ -39,7 +39,7 @@ function Calendar() {
     request();
   }
 
-  function addEvents(responseData) {
+  const addEvents = (responseData) => {
     responseData.map(e => (
       monthlyTodos.push({
         id: e.id,
@@ -53,7 +53,7 @@ function Calendar() {
     setEvents(monthlyTodos);
   }
 
-  function handleEventClick(clickInfo) {
+  const handleEventClick = (clickInfo) => {
     setModalOpen(true);
     setClickEvent(clickInfo.event.title);
   }

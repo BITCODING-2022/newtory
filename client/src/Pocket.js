@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 import TOC from './components/TOC'
-import ReadContent from './components/ReadCategory'
-import CreateContent from './components/CreateCategory'
-import UpdateContent from './components/UpdateCategory'
-import Subject from './components/Subject'
+import ReadCategory from './components/ReadCategory'
+import CreateCategory from './components/CreateCategory'
+import UpdateCategory from './components/UpdateCategory'
 import Control from './components/Control'
-import './App.css';
+import Subject from './components/Subject';
+import  {Route, Routes} from 'react-router-dom';
 
 
-class App extends Component {
+
+class Pocket extends Component {
     constructor(props) {
         super(props);
         this.max_content_id = 3;
         this.state = {
-            mode: 'create',
+            mode: 'welcome',
             selected_content_id: 1,
-            subject: { title: 'Pocket', sub: 'Hello Pocket!' },
-            welcome: { title: 'welcome', desc: 'Hello Pocket!!!' },
+            welcome: { title: 'welcome', desc: 'Hello Pocket!' },
+            subject: { title: 'Pocket Page', sub: 'User\'s pocket' },
             contents: [
-                { id: 1, title: 'HTML', desc: 'HTML is for information' },
-                { id: 2, title: 'CSS', desc: 'CSS is for design' },
-                { id: 3, title: 'JavaScript', desc: 'JavaScript is for interactive' },
+                { id: 1, title: 'HTML' },
+                { id: 2, title: 'CSS' },
+                { id: 3, title: 'JavaScript' },
             ]
         }
     }
@@ -30,7 +31,6 @@ class App extends Component {
             var data = this.state.contents[i];
             if (data.id === this.state.selected_content_id) {
                 return data;
-                break;
             }
             i = i + 1;
         }
@@ -40,12 +40,16 @@ class App extends Component {
         if (this.state.mode === 'welcome') {
             _title = this.state.welcome.title;
             _desc = this.state.welcome.desc;
-            _article = <ReadContent title={_title} desc={_desc}></ReadContent>
-        } else if (this.state.mode === 'read') {
+            _article = <ReadCategory title={_title} desc={_desc}></ReadCategory>
+        }
+
+        else if (this.state.mode === 'read') {
             var _content = this.getReadContent();
-            _article = <ReadContent title={_content.title} desc={_content.desc}></ReadContent>
-        } else if (this.state.mode === 'create') {
-            _article = <CreateContent onSubmit={function (_title, _desc) {
+            _article = <ReadCategory title={_content.title} desc={_content.desc}></ReadCategory>
+        }
+
+        else if (this.state.mode === 'create') {
+            _article = <CreateCategory onSubmit={function (_title, _desc) {
                 //add content to this.state.contents
                 this.max_content_id = this.max_content_id + 1;
                 var _contents = Array.from(this.state.contents);
@@ -55,10 +59,12 @@ class App extends Component {
                     mode: 'read',
                     selected_content_id: this.max_content_id
                 });
-            }.bind(this)}></CreateContent>
-        } else if (this.state.mode === 'update') {
+            }.bind(this)}></CreateCategory>
+        }
+
+        else if (this.state.mode === 'update') {
             _content = this.getReadContent();
-            _article = <UpdateContent data={_content} onSubmit={function (_id, _title, _desc) {
+            _article = <UpdateCategory data={_content} onSubmit={function (_id, _title, _desc) {
                 var _contents = Array.from(this.state.contents);
                 var i = 0;
                 while (i < _contents.length) {
@@ -71,12 +77,13 @@ class App extends Component {
                 this.setState({
                     contents: _contents,
                     mode: 'read',
-                    
+
                 });
-            }.bind(this)}></UpdateContent>
+            }.bind(this)}></UpdateCategory>
         }
         return _article;
     }
+
     render() {
 
         return (
@@ -101,28 +108,29 @@ class App extends Component {
                     data={this.state.contents}></TOC>
 
                 <Control onChangeMode={function (_mode) {
-                    if(_mode === 'delete'){
-                        if(window.confirm('really?')){
+                    if (_mode === 'delete') {
+                        if (window.confirm('really?')) {
                             var _contents = Array.from(this.state.contents);
-                            var i=0;
-                            while(i<_contents.length){
-                                if(_contents[i].id === this.state.selected_content_id){
+                            var i = 0;
+                            while (i < _contents.length) {
+                                if (_contents[i].id === this.state.selected_content_id) {
                                     _contents.splice(i, 1);
                                     break;
                                 }
-                                i = i+1;
+                                i = i + 1;
                             }
                             this.setState({
-                                mode:'welcome',
-                                contents:_contents
+                                mode: 'welcome',
+                                contents: _contents
                             });
                             alert('deleted!');
                         }
                     }
-                    else{this.setState({
-                        mode: _mode
-                    });
-                }
+                    else {
+                        this.setState({
+                            mode: _mode
+                        });
+                    }
                 }.bind(this)}></Control>
 
                 {this.getContent()}
@@ -131,4 +139,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default Pocket;

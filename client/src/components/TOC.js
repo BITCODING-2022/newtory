@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-
+import {Link} from 'react-router-dom';
 class TOC extends Component {
     shouldComponentUpdate(newProps, newState){
         if(this.props.data === newProps.data) return false;
         return true;
     }
+
     render() {
         var lists = [];
         var data = this.props.data;
@@ -12,7 +13,7 @@ class TOC extends Component {
         while (i < data.length) {
             lists.push(<li key={data[i].id}>
                 <a
-                    href={"/content/" + data[i].id}
+                    href={"/content/" + data[i].title}
                     data-id={data[i].id}
                     onClick={function (e) {
                         e.preventDefault();

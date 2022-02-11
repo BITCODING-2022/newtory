@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Pocket from './Pocket';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Pocket/>
   </React.StrictMode>,
   document.getElementById('root')
 );

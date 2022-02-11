@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import TOC from './components/TOC'
+import TOCList from './components/TOCList';
 import ReadCategory from './components/ReadCategory'
 import CreateCategory from './components/CreateCategory'
 import UpdateCategory from './components/UpdateCategory'
 import Control from './components/Control'
 import Subject from './components/Subject';
-import  {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 
 
@@ -16,7 +17,7 @@ class Pocket extends Component {
         this.state = {
             mode: 'welcome',
             selected_content_id: 1,
-            welcome: { title: 'welcome', desc: 'Hello Pocket!' },
+            welcome: { title: 'welcome' },
             subject: { title: 'Pocket Page', sub: 'User\'s pocket' },
             contents: [
                 { id: 1, title: 'HTML' },
@@ -36,24 +37,23 @@ class Pocket extends Component {
         }
     }
     getContent() {
-        var _title, _desc, _article = null;
+        var _title, _article = null;
         if (this.state.mode === 'welcome') {
             _title = this.state.welcome.title;
-            _desc = this.state.welcome.desc;
-            _article = <ReadCategory title={_title} desc={_desc}></ReadCategory>
+            _article = <ReadCategory title={_title}></ReadCategory>
         }
 
         else if (this.state.mode === 'read') {
             var _content = this.getReadContent();
-            _article = <ReadCategory title={_content.title} desc={_content.desc}></ReadCategory>
+            _article = <ReadCategory title={_content.title}></ReadCategory>
         }
 
         else if (this.state.mode === 'create') {
-            _article = <CreateCategory onSubmit={function (_title, _desc) {
+            _article = <CreateCategory onSubmit={function (_title) {
                 //add content to this.state.contents
                 this.max_content_id = this.max_content_id + 1;
                 var _contents = Array.from(this.state.contents);
-                _contents.push({ id: this.max_content_id, title: _title, desc: _desc });
+                _contents.push({ id: this.max_content_id, title: _title });
                 this.setState({
                     contents: _contents,
                     mode: 'read',
@@ -64,12 +64,12 @@ class Pocket extends Component {
 
         else if (this.state.mode === 'update') {
             _content = this.getReadContent();
-            _article = <UpdateCategory data={_content} onSubmit={function (_id, _title, _desc) {
+            _article = <UpdateCategory data={_content} onSubmit={function (_id, _title) {
                 var _contents = Array.from(this.state.contents);
                 var i = 0;
                 while (i < _contents.length) {
                     if (_contents[i].id === _id) {
-                        _contents[i] = { id: _id, title: _title, desc: _desc };
+                        _contents[i] = { id: _id, title: _title };
                         break;
                     }
                     i = i + 1;
@@ -103,9 +103,18 @@ class Pocket extends Component {
                     this.setState({
                         mode: 'read',
                         selected_content_id: Number(id)
-                    })
+                    });
                 }.bind(this)}
                     data={this.state.contents}></TOC>
+
+                
+                <TOCList onChangePage={function (id) {
+                    this.setState({
+                        mode: 'read',
+                        selected_content_id: Number(id)
+                    });
+                }.bind(this)}
+                    data={this.state.contents}></TOCList>
 
                 <Control onChangeMode={function (_mode) {
                     if (_mode === 'delete') {

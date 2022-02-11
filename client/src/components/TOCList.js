@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {Link} from 'react-router-dom';
-class TOC extends Component {
+class TOCList extends Component {
     shouldComponentUpdate(newProps, newState){
         if(this.props.data === newProps.data) return false;
         return true;
@@ -33,4 +33,4 @@ class TOC extends Component {
     }
 }
 
-export default TOC;
+export default TOCList;

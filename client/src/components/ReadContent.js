@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-class Content extends Component{
-    render(){
-        return(
+class ReadContent extends Component {
+    render() {
+        return (
             <article>
                 <h2>{this.props.title}</h2>
                 {this.props.desc}
@@ -11,4 +11,4 @@ class Content extends Component{
     }
 }
 
-export default Content;
+export default ReadContent;
